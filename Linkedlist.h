@@ -3,10 +3,12 @@
 
 #include <iostream>
 
+#include "Node.h"
+
 class Linkedlist {
   public:
     Linkedlist();
-  
+
     bool isEmpty();
     bool insertNode(int value);
     bool deleteNode(int value);
@@ -15,10 +17,10 @@ class Linkedlist {
     int average();
     Linkedlist* mergeLists(Linkedlist newList);
     void printList();
-    LinkedList* reverseList();
+    Linkedlist* reverseList();
 
   private:
-    Linkedlist* list;
+    Node* tail;
 };
 
 #endif

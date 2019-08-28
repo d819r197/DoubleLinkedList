@@ -1,14 +1,14 @@
+#include <iostream>
+
+#include "Node.h"
+
 //Constructor
 Node::Node(int value) {
   nodeValue = value;
 }
 
 //Helper Functions
-void setValue(int value) {
-  nodeValue = value;
-}
-
-int getValue() {
+int Node::getValue() {
   return(nodeValue);
 }
 
