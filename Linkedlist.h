@@ -10,8 +10,8 @@ class Linkedlist {
     Linkedlist();
 
     bool isEmpty();
-    bool insertNode(int value);
-    bool deleteNode(int value);
+    void insertNode(Node* node);
+    bool deleteNode(Node* node);
     int smallest();
     int largest();
     int average();

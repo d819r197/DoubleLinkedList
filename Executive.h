@@ -4,15 +4,19 @@
 #include <iostream>
 #include <string>
 
+#include "Linkedlist.h"
+
 class Executive {
   public:
     Executive(std::string path);
-    void printMenu();
+    int menuInput();
     void run();
-    void parseInputFile();
+    bool parseInputFile();
 
   private:
     std::string filePath;
+    Linkedlist* currentList;
+
 };
 
 #endif

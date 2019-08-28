@@ -4,7 +4,10 @@
 
 //Constructor
 Node::Node(int value) {
+  std::cout << "Creating Node...";
   nodeValue = value;
+  nextNode = nullptr;
+  std::cout << "Node Created!\n";  
 }
 
 //Helper Functions
