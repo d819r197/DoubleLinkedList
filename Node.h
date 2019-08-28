@@ -6,7 +6,7 @@
 class Node {
   public:
     //Constructor
-    Node(int value)
+    Node(int value);
 
     //Helper Functions
     void setValue(int value);
@@ -16,7 +16,7 @@ class Node {
     void setNextNode(Node* node);
 
   private:
-    int value;
+    int nodeValue;
     Node* nextNode;
 };
 

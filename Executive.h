@@ -5,6 +5,8 @@
 
 class Executive {
   public:
+    printMenu();
+    run();
 
   private:
 };
