@@ -8,6 +8,10 @@ Linkedlist::Linkedlist() {
   listSize = 0;
 }
 
+Linkedlist::~Linkedlist() {
+  
+}
+
 bool Linkedlist::isEmpty() {
   if(listSize == 0) {
     return(true);
@@ -42,16 +46,38 @@ bool Linkedlist::deleteNode(int value) {
   while(tempNode->getNextNode() != nullptr)
   {
     if(value == tempNode->getValue()) {
-      std::cout << "Node with value: " <<value <<" found!\n";
       Node* prev = tempNode->getPrevNode();
       Node* next = tempNode->getNextNode();
-      std::cout << "Connecting node: " <<prev->getValue() <<" and " <<next->getValue() <<".\n";
+      if(tempNode->getValue() == head->getValue()) {
+        head=next;
+        delete tempNode;
+        listSize--;
+        return (true);
+      }
+      else {
         prev->setNextNode(next);
         delete tempNode;
         listSize--;
         return (true);
+      }
     }
     tempNode = tempNode->getNextNode();
+  }
+  if(value == tempNode->getValue()) {
+    Node* prev = tempNode->getPrevNode();
+    Node* next = tempNode->getNextNode();
+    if(tempNode->getValue() == head->getValue()) {
+      head=next;
+      delete tempNode;
+      listSize--;
+      return (true);
+    }
+    else {
+      prev->setNextNode(next);
+      delete tempNode;
+      listSize--;
+      return (true);
+    }
   }
   return (false);
 }
@@ -97,10 +123,6 @@ int Linkedlist::average() {
   return(sum/listSize);
 }
 
-Linkedlist* Linkedlist::mergeLists(Linkedlist newList) {
-
-}
-
 void Linkedlist::printList() {
   if(isEmpty() == false) {
     std::cout << "List: ";
@@ -117,5 +139,14 @@ void Linkedlist::printList() {
 }
 
 Linkedlist* Linkedlist::reverseList() {
-
+  Node* node = head;
+  Linkedlist* reverse = new Linkedlist;
+  while(node->getNextNode() != nullptr) {
+    node = node->getNextNode();
+  }
+  for(int lcv = 0; lcv < listSize; lcv++) {
+    reverse->insertNode(node->getValue());
+    node = node->getPrevNode();
+  }
+  return (reverse);
 }

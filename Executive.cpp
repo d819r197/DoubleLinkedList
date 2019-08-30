@@ -34,6 +34,7 @@ void Executive::run() {
   bool quit = false;
   while(!quit) {
     switch (menuInput()) {
+      //Insert
       case 1: {
           int input;
           std::cout << "Enter element to be inserted in list: ";
@@ -41,6 +42,7 @@ void Executive::run() {
           currentList->insertNode(input);
           break;
       }
+      //Delete
       case 2: {
           int input;
           std::cout << "Enter the number to be deleted: ";
@@ -53,18 +55,22 @@ void Executive::run() {
           }
           break;
       }
+      //Smallest Number
       case 3: {
           std::cout <<"Smallest number: " <<currentList->smallest() <<std::endl;
           break;
       }
+      //Largest Number
       case 4: {
           std::cout <<"Largest number: " <<currentList->largest() <<std::endl;
           break;
       }
+      //List Average
       case 5: {
           std::cout <<"Average: " <<currentList->average() <<std::endl;
           break;
       }
+      //Merge2Lists
       case 6: {
           std::string input;
           std::cout << "Enter a new list to be merged\n";
@@ -75,17 +81,24 @@ void Executive::run() {
           currentList->printList();
           break;
       }
+      //Print List
       case 7: {
           currentList->printList();
           break;
       }
+      //Reverse List
       case 8: {
+          // (currentList->reverseList())->printList();
+          currentList = currentList->reverseList();
+          currentList->printList();
           break;
       }
+      //Quit
       case 9: {
           quit = true;
           break;
       }
+      //Invalid Input
       default: {
           std::cout << "Please input a number between 1 and 9.\n\n";
       }

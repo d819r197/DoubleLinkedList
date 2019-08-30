@@ -9,6 +9,8 @@
 class Executive {
   public:
     Executive(std::string path);
+    ~Executive();
+    
     int menuInput();
     void run();
     bool parseInputFile();
