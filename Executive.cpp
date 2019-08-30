@@ -35,13 +35,17 @@ void Executive::run() {
   while(!quit) {
     switch (menuInput()) {
       case 1: {
-          int newValue;
+          int input;
           std::cout << "Enter element to be inserted in list: ";
-          std::cin >> newValue;
-          currentList->insertNode(newValue);
+          std::cin >> input;
+          currentList->insertNode(input);
           break;
       }
       case 2: {
+          int input;
+          std::cout << "Enter the number to be deleted: ";
+          std::cin >> input;
+          currentList->deleteNode(input);
           break;
       }
       case 3: {
