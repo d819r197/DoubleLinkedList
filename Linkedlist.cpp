@@ -9,33 +9,31 @@ Linkedlist::Linkedlist() {
 }
 
 bool Linkedlist::isEmpty() {
-  std::cout << "list size: " <<listSize <<std::endl;
   if(listSize == 0) {
-    std::cout << "true\n";
     return(true);
   }
   else {
-    std::cout << "false\n";
     return(false);
   }
 }
 
 void Linkedlist::insertNode(int value) {
-  std::cout <<"inserting node...";
-  Node* tempNode = new Node(value);
-
   if(isEmpty()) {
-    std::cout << "Empty List\n";
+    Node* tempNode = new Node(value);
     tempNode->setNextNode(nullptr);
     head = tempNode;
   }
   else {
-    tempNode->setNextNode(head);
-    head = tempNode;
+    Node* tempNode = head;
+    Node* tempNode2 = new Node(value);
+    while(tempNode->getNextNode() != nullptr)
+    {
+      tempNode = tempNode->getNextNode();
+    }
+    tempNode->setNextNode(tempNode2);
+    tempNode2->setNextNode(nullptr);
   }
-
   listSize++;
-  std::cout <<"node added.\n";
 }
 
 bool Linkedlist::deleteNode(int value) {
@@ -59,7 +57,6 @@ Linkedlist* Linkedlist::mergeLists(Linkedlist newList) {
 }
 
 void Linkedlist::printList() {
-  std::cout << "Printing List.\n";
   if(isEmpty() == false) {
     std::cout << "List: ";
     Node* node = head;
@@ -72,7 +69,6 @@ void Linkedlist::printList() {
   else {
     std::cout << "Nothing to print. Empty List.\n";
   }
-
 }
 
 Linkedlist* Linkedlist::reverseList() {

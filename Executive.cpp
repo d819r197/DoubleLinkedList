@@ -82,7 +82,6 @@ bool Executive::parseInputFile() {
 
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
-      std::cout<<"Current Char: " <<c <<"\n";
       if (c != ' ' && c != '\n') {
         strInt += c;
       }
