@@ -53,32 +53,48 @@ bool Linkedlist::deleteNode(int value) {
     }
     tempNode = tempNode->getNextNode();
   }
-  std::cout << "No node was found, try again.\n";
   return (false);
 }
 
 int Linkedlist::smallest() {
   Node* tempNode = head;
-  while(tempNode->getNextNode() != nullptr)
-  {
+  int smallest = tempNode->getValue();
+  while(tempNode->getNextNode() != nullptr) {
+    if(tempNode->getValue() < smallest) {
+      smallest = tempNode->getValue();
+    }
     tempNode = tempNode->getNextNode();
   }
+  if(tempNode->getValue() < smallest) {
+    smallest = tempNode->getValue();
+  }
+  return(smallest);
 }
 
 int Linkedlist::largest() {
   Node* tempNode = head;
-  while(tempNode->getNextNode() != nullptr)
-  {
+  int largest = tempNode->getValue();
+  while(tempNode->getNextNode() != nullptr) {
+    if(tempNode->getValue() > largest) {
+      largest = tempNode->getValue();
+    }
     tempNode = tempNode->getNextNode();
   }
+  if(tempNode->getValue() > largest) {
+    largest = tempNode->getValue();
+  }
+  return(largest);
 }
 
 int Linkedlist::average() {
   Node* tempNode = head;
-  while(tempNode->getNextNode() != nullptr)
-  {
+  int sum = 0;
+  while(tempNode->getNextNode() != nullptr) {
+    sum += tempNode->getValue();
     tempNode = tempNode->getNextNode();
   }
+  sum += tempNode->getValue();
+  return(sum/listSize);
 }
 
 Linkedlist* Linkedlist::mergeLists(Linkedlist newList) {

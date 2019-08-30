@@ -45,19 +45,34 @@ void Executive::run() {
           int input;
           std::cout << "Enter the number to be deleted: ";
           std::cin >> input;
-          currentList->deleteNode(input);
+          if(currentList->deleteNode(input)) {
+            std::cout << "Delete was successful. \n";
+          }
+          else {
+            std::cout << "Delete failed. Number was not found in the list.\n";
+          }
           break;
       }
       case 3: {
+          std::cout <<"Smallest number: " <<currentList->smallest() <<std::endl;
           break;
       }
       case 4: {
+          std::cout <<"Largest number: " <<currentList->largest() <<std::endl;
           break;
       }
       case 5: {
+          std::cout <<"Average: " <<currentList->average() <<std::endl;
           break;
       }
       case 6: {
+          std::string input;
+          std::cout << "Enter a new list to be merged\n";
+          std::cin.ignore();
+          std::getline(std::cin, input);
+          parseNewString(input);
+          std::cout <<"Merged List: ";
+          currentList->printList();
           break;
       }
       case 7: {
@@ -80,24 +95,19 @@ void Executive::run() {
 
 bool Executive::parseInputFile() {
   std::ifstream inputFile(filePath);
-
   std::string strInt = "";
   char c;
-
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
       if (c != ' ' && c != '\n') {
         strInt += c;
       }
       else {
-        std::cout<<"Creating Node with Value: " <<strInt <<"\n";
-        // Node* newNode= new Node(std::stoi(strInt));
+        // std::cout<<"Creating Node with Value: " <<strInt <<"\n";
         currentList->insertNode(std::stoi(strInt));
-
         strInt = "";
       }
     }
-
     inputFile.close();
     return(true);
   }
@@ -105,5 +115,19 @@ bool Executive::parseInputFile() {
     std::cout << "File Path: " <<filePath <<" is an invalid path.\n";
     return(false);
   }
+}
 
+void Executive::parseNewString(std::string input) {
+  std::string strInt = "";
+  std::cout <<"User input: " <<input <<std::endl;
+  for(int lcv = 0; lcv < input.size(); lcv++) {
+    if(input[lcv] != ' ' && input[lcv] != '\n') {
+      strInt += input[lcv];
+    }
+    else {
+      currentList->insertNode(std::stoi(strInt));
+      strInt = "";
+    }
+  }
+  currentList->insertNode(std::stoi(strInt));
 }

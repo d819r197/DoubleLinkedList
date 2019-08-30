@@ -12,6 +12,7 @@ class Executive {
     int menuInput();
     void run();
     bool parseInputFile();
+    void parseNewString(std::string input);
 
   private:
     std::string filePath;
