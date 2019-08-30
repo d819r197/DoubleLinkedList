@@ -4,40 +4,41 @@
 #include "Node.h"
 
 Linkedlist::Linkedlist() {
-  tail = nullptr;
+  head = nullptr;
+  listSize = 0;
 }
 
 bool Linkedlist::isEmpty() {
-  if(tail == nullptr) {
-    std::cout<<"True\n";
+  std::cout << "list size: " <<listSize <<std::endl;
+  if(listSize == 0) {
+    std::cout << "true\n";
     return(true);
   }
   else {
-    std::cout<<"False\n";
+    std::cout << "false\n";
     return(false);
   }
 }
 
-void Linkedlist::insertNode(Node* node) {
-  //First Item
-  std::cout<<"Checking if list is empty: ";
+void Linkedlist::insertNode(int value) {
+  std::cout <<"inserting node...";
+  Node* tempNode = new Node(value);
+
   if(isEmpty()) {
     std::cout << "Empty List\n";
-    tail = node;
+    tempNode->setNextNode(nullptr);
+    head = tempNode;
   }
-  //More then 1 Item
-  //Go through each node till nextPtr = nullptr
   else {
-    std::cout << "Not Empty List\n";
-    Node* newNode = node;
-    while(node->getNextNode() != nullptr) {
-      node = node->getNextNode();
-    }
-    node->setNextNode(newNode);
+    tempNode->setNextNode(head);
+    head = tempNode;
   }
+
+  listSize++;
+  std::cout <<"node added.\n";
 }
 
-bool Linkedlist::deleteNode(Node* node) {
+bool Linkedlist::deleteNode(int value) {
 
 }
 
@@ -58,9 +59,10 @@ Linkedlist* Linkedlist::mergeLists(Linkedlist newList) {
 }
 
 void Linkedlist::printList() {
-  Node* node = tail;
-  if(!isEmpty()) {
+  std::cout << "Printing List.\n";
+  if(isEmpty() == false) {
     std::cout << "List: ";
+    Node* node = head;
     while(node->getNextNode() != nullptr) {
       std::cout << node->getValue() <<", ";
       node = node->getNextNode();

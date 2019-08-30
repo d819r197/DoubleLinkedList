@@ -4,10 +4,7 @@
 
 //Constructor
 Node::Node(int value) {
-  std::cout << "Creating Node...";
   nodeValue = value;
-  nextNode = nullptr;
-  std::cout << "Node Created!\n";  
 }
 
 //Helper Functions
@@ -25,4 +22,12 @@ Node* Node::getNextNode() {
 
 void Node::setNextNode(Node* node) {
   nextNode = node;
+}
+
+Node* Node::getPrevNode() {
+  return(prevNode);
+}
+
+void Node::setPrevNode(Node* node) {
+  prevNode = node;
 }

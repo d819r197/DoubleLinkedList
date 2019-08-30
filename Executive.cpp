@@ -7,6 +7,7 @@
 
 Executive::Executive(std::string path) {
   filePath = path;
+  currentList = new Linkedlist;
 }
 
 int Executive::menuInput() {
@@ -37,8 +38,7 @@ void Executive::run() {
           int newValue;
           std::cout << "Enter element to be inserted in list: ";
           std::cin >> newValue;
-          Node* newNode = new Node(newValue);
-          currentList->insertNode(newNode);
+          currentList->insertNode(newValue);
           break;
       }
       case 2: {
@@ -57,6 +57,7 @@ void Executive::run() {
           break;
       }
       case 7: {
+          currentList->printList();
           break;
       }
       case 8: {
@@ -81,14 +82,15 @@ bool Executive::parseInputFile() {
 
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
-      std::cout<<"Current Char: " <<c <<".\n";
+      std::cout<<"Current Char: " <<c <<"\n";
       if (c != ' ' && c != '\n') {
         strInt += c;
       }
       else {
         std::cout<<"Creating Node with Value: " <<strInt <<"\n";
-        Node* newNode= new Node(std::stoi(strInt));
-        currentList->insertNode(newNode);
+        // Node* newNode= new Node(std::stoi(strInt));
+        currentList->insertNode(std::stoi(strInt));
+
         strInt = "";
       }
     }

@@ -10,8 +10,8 @@ class Linkedlist {
     Linkedlist();
 
     bool isEmpty();
-    void insertNode(Node* node);
-    bool deleteNode(Node* node);
+    void insertNode(int value);
+    bool deleteNode(int value);
     int smallest();
     int largest();
     int average();
@@ -20,7 +20,8 @@ class Linkedlist {
     Linkedlist* reverseList();
 
   private:
-    Node* tail;
+    Node* head;
+    int listSize;
 };
 
 #endif
