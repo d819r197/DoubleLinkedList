@@ -76,7 +76,7 @@ void Executive::run() {
           std::cout << "Enter a new list to be merged\n";
           std::cin.ignore();
           std::getline(std::cin, input);
-          parseNewString(input);
+          currentList = currentList->merge2Lists(input);
           std::cout <<"Merged List: ";
           currentList->printList();
           break;
@@ -95,6 +95,7 @@ void Executive::run() {
       }
       //Quit
       case 9: {
+          delete currentList;
           quit = true;
           break;
       }
@@ -128,19 +129,4 @@ bool Executive::parseInputFile() {
     std::cout << "File Path: " <<filePath <<" is an invalid path.\n";
     return(false);
   }
-}
-
-void Executive::parseNewString(std::string input) {
-  std::string strInt = "";
-  std::cout <<"User input: " <<input <<std::endl;
-  for(int lcv = 0; lcv < input.size(); lcv++) {
-    if(input[lcv] != ' ' && input[lcv] != '\n') {
-      strInt += input[lcv];
-    }
-    else {
-      currentList->insertNode(std::stoi(strInt));
-      strInt = "";
-    }
-  }
-  currentList->insertNode(std::stoi(strInt));
 }

@@ -2,12 +2,14 @@
 #define LINKEDLIST_H
 
 #include <iostream>
+#include <string>
 
 #include "Node.h"
 
 class Linkedlist {
   public:
     Linkedlist();
+    ~Linkedlist();
 
     bool isEmpty();
     void insertNode(int value);
@@ -15,7 +17,8 @@ class Linkedlist {
     int smallest();
     int largest();
     int average();
-    Linkedlist* mergeLists(Linkedlist newList);
+    void parseNewString(std::string input);
+    Linkedlist* merge2Lists(std::string listRaw);
     void printList();
     Linkedlist* reverseList();
 

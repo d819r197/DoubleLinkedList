@@ -9,12 +9,10 @@
 class Executive {
   public:
     Executive(std::string path);
-    ~Executive();
-    
+
     int menuInput();
     void run();
     bool parseInputFile();
-    void parseNewString(std::string input);
 
   private:
     std::string filePath;

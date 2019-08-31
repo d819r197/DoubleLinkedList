@@ -9,11 +9,13 @@ Linkedlist::Linkedlist() {
 }
 
 Linkedlist::~Linkedlist() {
-  
+  while(!isEmpty()) {
+    deleteNode(head->getValue());
+  }
 }
 
 bool Linkedlist::isEmpty() {
-  if(listSize == 0) {
+  if(listSize == 0 || head == nullptr) {
     return(true);
   }
   else {
@@ -122,6 +124,33 @@ int Linkedlist::average() {
   sum += tempNode->getValue();
   return(sum/listSize);
 }
+
+void Linkedlist::parseNewString(std::string input) {
+  std::string strInt = "";
+  for(int lcv = 0; lcv < input.size(); lcv++) {
+    if(input[lcv] != ' ' && input[lcv] != '\n') {
+      strInt += input[lcv];
+    }
+    else {
+      insertNode(std::stoi(strInt));
+      strInt = "";
+    }
+  }
+  insertNode(std::stoi(strInt));
+}
+
+Linkedlist* Linkedlist::merge2Lists(std::string listRaw) {
+  parseNewString(listRaw);
+
+  Linkedlist* tempList = new Linkedlist;
+
+  while(!isEmpty()) {
+    tempList->insertNode(smallest());
+    deleteNode(smallest());
+  }
+  return(tempList);
+}
+
 
 void Linkedlist::printList() {
   if(isEmpty() == false) {
