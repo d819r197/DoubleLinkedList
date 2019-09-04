@@ -41,6 +41,7 @@ void Linkedlist::insertNode(int value) {
     tempNode2->setPrevNode(tempNode);
   }
   listSize++;
+  std::cout << "List Size: " <<listSize <<std::endl;
 }
 
 bool Linkedlist::deleteNode(int value) {
@@ -137,6 +138,8 @@ void Linkedlist::parseNewString(std::string input) {
     }
   }
   insertNode(std::stoi(strInt));
+  std::cout<<"List size: " <<listSize <<std::endl;
+  printList();
 }
 
 Linkedlist* Linkedlist::merge2Lists(std::string listRaw) {

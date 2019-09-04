@@ -77,7 +77,6 @@ void Executive::run() {
           std::cin.ignore();
           std::getline(std::cin, input);
           currentList = currentList->merge2Lists(input);
-          std::cout <<"Merged List: ";
           currentList->printList();
           break;
       }
