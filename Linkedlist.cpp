@@ -168,7 +168,6 @@ bool Linkedlist::sortList(bool isSorted, int pos) {
         }
       }
 
-
       // Node* node = head;
       // int currentVal = head->getValue();
       // while(node->getNextNode() != nullptr) {
