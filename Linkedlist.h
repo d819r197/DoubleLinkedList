@@ -21,7 +21,7 @@ class Linkedlist {
     bool merge2Lists(std::string listRaw);
     void printList();
     Linkedlist* reverseList();
-    bool sortList(bool isSorted, int);
+    bool sortList();
 
   private:
     Node* head;

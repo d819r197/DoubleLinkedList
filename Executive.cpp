@@ -76,8 +76,12 @@ void Executive::run() {
           std::cout << "Enter a new list to be merged\n";
           std::cin.ignore();
           std::getline(std::cin, input);
-          currentList->merge2Lists(input);
-          currentList->printList();
+          if(currentList->merge2Lists(input)) {
+            currentList->printList();
+          }
+          else {
+            std::cout << "ERROR Merging Lists\n";
+          }
           break;
       }
       //Print List

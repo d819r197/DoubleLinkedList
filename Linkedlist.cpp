@@ -42,7 +42,6 @@ void Linkedlist::insertNode(int value) {
     tempNode2->setPrevNode(tempNode);
   }
   listSize++;
-  std::cout << "List Size: " <<listSize <<std::endl;
 }
 
 bool Linkedlist::deleteNode(int value) {
@@ -139,60 +138,43 @@ void Linkedlist::parseNewString(std::string input) {
     }
   }
   insertNode(std::stoi(strInt));
-  std::cout<<"List size: " <<listSize <<std::endl;
-  printList();
 }
 
-bool Linkedlist::sortList(bool isSorted, int pos) {
-  if(!isEmpty()) {
-    // if(!isSorted || firstCall) {
-      Node* node = head;
-      Node* nextNode = head->getNextNode();
-      int tempValue = node->getValue();
-      for(int n = 0; n < listSize; n++) {
-        // if(node->getNextNode() != nullptr && nextNode->getNextNode() != nullptr) {
-        if(node->getNextNode() != nullptr) {
-          if(tempValue > nextNode->getValue()) {
-            // std::cout << "Swapping " << node->getValue() <<" and " <<nextNode->getValue() <<std::endl;
-            tempValue = node->getValue();
-            node->setValue(nextNode->getValue());
-            if(nextNode != nullptr) {
-              nextNode->setValue(tempValue);
+bool Linkedlist::sortList() {
+  bool isSorted = false;
+  while(!isSorted) {
+    if(!isEmpty()) {
+        isSorted = true;
+        Node* node = head;
+        Node* nextNode = head->getNextNode();
+        int tempValue = node->getValue();
+        for(int n = 0; n < listSize; n++) {
+          if(node->getNextNode() != nullptr) {
+            if(tempValue > nextNode->getValue()) {
+              node->setValue(nextNode->getValue());
+              if(nextNode != nullptr) {
+                nextNode->setValue(tempValue);
+              }
+              isSorted = false;
             }
-            isSorted = false;
-            std::cout <<pos <<") ";
-            printList();
+            tempValue = nextNode->getValue();
+            node = node->getNextNode();
+            nextNode = nextNode->getNextNode();
           }
-          node = node->getNextNode();
-          nextNode = nextNode->getNextNode();
         }
-      }
-
-      // Node* node = head;
-      // int currentVal = head->getValue();
-      // while(node->getNextNode() != nullptr) {
-      //   std::cout << "Comparing " << node->getValue() <<" and " <<(node->getNextNode())->getValue() <<std::endl;
-      //   if(currentVal > (node->getNextNode())->getValue()) {
-      //     std::cout << "Swapping " << node->getValue() <<" and " <<(node->getNextNode())->getValue() <<std::endl;
-      //     node->setValue((node->getNextNode())->getValue());
-      //     (node->getNextNode())->setValue(currentVal);
-      //     currentVal = node->getValue();
-      //     isSorted = false;
-      //   }
-      //   node = node->getNextNode();
-      // }
-    // }
+        if(isSorted) {
+          return(true);
+        }
+    }
+    else {
+      return(false);
+    }
   }
-  else if(isSorted) {
-    return(true);
-  }
-  sortList(true, pos+1);
-
 }
 
 bool Linkedlist::merge2Lists(std::string listRaw) {
   parseNewString(listRaw);
-  return(sortList(true, 0));
+  return(sortList());
 }
 
 void Linkedlist::printList() {
