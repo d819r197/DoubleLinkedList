@@ -76,7 +76,7 @@ void Executive::run() {
           std::cout << "Enter a new list to be merged\n";
           std::cin.ignore();
           std::getline(std::cin, input);
-          currentList = currentList->merge2Lists(input);
+          currentList->merge2Lists(input);
           currentList->printList();
           break;
       }
@@ -87,7 +87,6 @@ void Executive::run() {
       }
       //Reverse List
       case 8: {
-          // (currentList->reverseList())->printList();
           currentList = currentList->reverseList();
           currentList->printList();
           break;
