@@ -18,9 +18,10 @@ class Linkedlist {
     int largest();
     int average();
     void parseNewString(std::string input);
-    Linkedlist* merge2Lists(std::string listRaw);
+    bool merge2Lists(std::string listRaw);
     void printList();
     Linkedlist* reverseList();
+    bool sortList(bool isSorted, int);
 
   private:
     Node* head;
