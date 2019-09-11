@@ -13,6 +13,7 @@ class Linkedlist {
 
     bool isEmpty();
     void insertNode(int value);
+    void insertNodeFront(int value);
     bool deleteNode(int value);
     int smallest();
     int largest();
