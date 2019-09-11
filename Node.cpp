@@ -23,11 +23,3 @@ Node* Node::getNextNode() {
 void Node::setNextNode(Node* node) {
   nextNode = node;
 }
-
-Node* Node::getPrevNode() {
-  return(prevNode);
-}
-
-void Node::setPrevNode(Node* node) {
-  prevNode = node;
-}

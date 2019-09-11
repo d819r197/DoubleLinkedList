@@ -25,7 +25,6 @@ bool Linkedlist::isEmpty() {
 
 void Linkedlist::insertNode(int value) {
   if(isEmpty()) {
-    std::cout << "im empty\n";
     Node* tempNode = new Node(value);
     tempNode->setNextNode(nullptr);
     head = tempNode;
@@ -39,10 +38,8 @@ void Linkedlist::insertNode(int value) {
     }
     tempNode->setNextNode(tempNode2);
     tempNode2->setNextNode(nullptr);
-    tempNode2->setPrevNode(tempNode);
   }
   listSize++;
-  std::cout << "List Size: " <<listSize <<std::endl;
 }
 
 bool Linkedlist::deleteNode(int value) {
@@ -50,7 +47,6 @@ bool Linkedlist::deleteNode(int value) {
   while(tempNode->getNextNode() != nullptr)
   {
     if(value == tempNode->getValue()) {
-      Node* prev = tempNode->getPrevNode();
       Node* next = tempNode->getNextNode();
       if(tempNode == head) {
         head=next;
@@ -59,7 +55,6 @@ bool Linkedlist::deleteNode(int value) {
         return (true);
       }
       else {
-        prev->setNextNode(next);
         delete tempNode;
         listSize--;
         return (true);
@@ -68,7 +63,6 @@ bool Linkedlist::deleteNode(int value) {
     tempNode = tempNode->getNextNode();
   }
   if(value == tempNode->getValue()) {
-    Node* prev = tempNode->getPrevNode();
     Node* next = tempNode->getNextNode();
     if(tempNode->getValue() == head->getValue()) {
       head=next;
@@ -77,7 +71,6 @@ bool Linkedlist::deleteNode(int value) {
       return (true);
     }
     else {
-      prev->setNextNode(next);
       delete tempNode;
       listSize--;
       return (true);
@@ -147,7 +140,8 @@ bool Linkedlist::sortList(bool isSorted, int pos) {
   if(!isEmpty()) {
     // if(!isSorted || firstCall) {
       Node* node = head;
-      Node* nextNode = head->getNextNode();
+      Nod    reverse->insertNode(node->getValue());
+e* nextNode = head->getNextNode();
       int tempValue = node->getValue();
       for(int n = 0; n < listSize; n++) {
         // if(node->getNextNode() != nullptr && nextNode->getNextNode() != nullptr) {
@@ -183,7 +177,8 @@ bool Linkedlist::sortList(bool isSorted, int pos) {
       // }
     // }
   }
-  else if(isSorted) {
+  else if    reverse->insertNode(node->getValue());
+(isSorted) {
     return(true);
   }
   sortList(true, pos+1);
@@ -214,11 +209,13 @@ Linkedlist* Linkedlist::reverseList() {
   Node* node = head;
   Linkedlist* reverse = new Linkedlist;
   while(node->getNextNode() != nullptr) {
+    reverse->insertNode(node->getValue());
     node = node->getNextNode();
   }
-  for(int lcv = 0; lcv < listSize; lcv++) {
-    reverse->insertNode(node->getValue());
-    node = node->getPrevNode();
-  }
+  reverse->insertNode(node->getValue());
+
+  // for(int lcv = 0; lcv < listSize; lcv++) {
+  //   node = node->getPrevNode();
+  // }
   return (reverse);
 }

@@ -15,13 +15,9 @@ class Node {
     Node* getNextNode();
     void setNextNode(Node* node);
 
-    Node* getPrevNode();
-    void setPrevNode(Node* node);
-
   private:
     int nodeValue;
     Node* nextNode;
-    Node* prevNode;
 };
 
 #endif
