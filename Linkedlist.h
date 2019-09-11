@@ -18,6 +18,7 @@ class Linkedlist {
     int smallest();
     int largest();
     int average();
+    bool find(int value);
     void parseNewString(std::string input);
     bool merge2Lists(std::string listRaw);
     void printList();
