@@ -132,10 +132,9 @@ void Linkedlist::parseNewString(std::string input) {
     }
   }
   insertNode(std::stoi(strInt));
-  std::cout<<"List size: " <<listSize <<std::endl;
-  printList();
 }
 
+<<<<<<< HEAD
 bool Linkedlist::sortList(bool isSorted, int pos) {
   if(!isEmpty()) {
     // if(!isSorted || firstCall) {
@@ -152,14 +151,31 @@ e* nextNode = head->getNextNode();
             node->setValue(nextNode->getValue());
             if(nextNode != nullptr) {
               nextNode->setValue(tempValue);
+=======
+bool Linkedlist::sortList() {
+  bool isSorted = false;
+  while(!isSorted) {
+    if(!isEmpty()) {
+        isSorted = true;
+        Node* node = head;
+        Node* nextNode = head->getNextNode();
+        int tempValue = node->getValue();
+        for(int n = 0; n < listSize; n++) {
+          if(node->getNextNode() != nullptr) {
+            if(tempValue > nextNode->getValue()) {
+              node->setValue(nextNode->getValue());
+              if(nextNode != nullptr) {
+                nextNode->setValue(tempValue);
+              }
+              isSorted = false;
+>>>>>>> aeec20e9e4a78d7b756cdb593fa79187325b7e49
             }
-            isSorted = false;
-            std::cout <<pos <<") ";
-            printList();
+            tempValue = nextNode->getValue();
+            node = node->getNextNode();
+            nextNode = nextNode->getNextNode();
           }
-          node = node->getNextNode();
-          nextNode = nextNode->getNextNode();
         }
+<<<<<<< HEAD
       }
 
       // Node* node = head;
@@ -180,14 +196,21 @@ e* nextNode = head->getNextNode();
   else if    reverse->insertNode(node->getValue());
 (isSorted) {
     return(true);
+=======
+        if(isSorted) {
+          return(true);
+        }
+    }
+    else {
+      return(false);
+    }
+>>>>>>> aeec20e9e4a78d7b756cdb593fa79187325b7e49
   }
-  sortList(true, pos+1);
-
 }
 
 bool Linkedlist::merge2Lists(std::string listRaw) {
   parseNewString(listRaw);
-  return(sortList(true, 0));
+  return(sortList());
 }
 
 void Linkedlist::printList() {
