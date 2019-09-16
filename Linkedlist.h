@@ -13,10 +13,12 @@ class Linkedlist {
 
     bool isEmpty();
     void insertNode(int value);
+    void insertNodeFront(int value);
     bool deleteNode(int value);
     int smallest();
     int largest();
     int average();
+    bool find(int value);
     void parseNewString(std::string input);
     bool merge2Lists(std::string listRaw);
     void printList();

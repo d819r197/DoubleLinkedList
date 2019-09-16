@@ -4,6 +4,7 @@
 
 #include "Executive.h"
 #include "Linkedlist.h"
+#include "Hash.h"
 
 Executive::Executive(std::string path) {
   filePath = path;
@@ -15,13 +16,9 @@ int Executive::menuInput() {
 
   std::cout << "1. Insert \n";
   std::cout << "2. Delete \n";
-  std::cout << "3. Find Smallest Number \n";
-  std::cout << "4. Find Largest Number \n";
-  std::cout << "5. Average of Numbers \n";
-  std::cout << "6. Merge2Lists \n";
-  std::cout << "7. Print \n";
-  std::cout << "8. ReverseList \n";
-  std::cout << "9. Exit \n";
+  std::cout << "3. Find \n";
+  std::cout << "4. Print \n";
+  std::cout << "5. Exit \n";
 
   std::cout << ">> ";
   std::cin >> choice;
@@ -55,55 +52,24 @@ void Executive::run() {
           }
           break;
       }
-      //Smallest Number
+      //Find
       case 3: {
-          std::cout <<"Smallest number: " <<currentList->smallest() <<std::endl;
           break;
       }
-      //Largest Number
+      //Print
       case 4: {
-          std::cout <<"Largest number: " <<currentList->largest() <<std::endl;
-          break;
-      }
-      //List Average
-      case 5: {
-          std::cout <<"Average: " <<currentList->average() <<std::endl;
-          break;
-      }
-      //Merge2Lists
-      case 6: {
-          std::string input;
-          std::cout << "Enter a new list to be merged\n";
-          std::cin.ignore();
-          std::getline(std::cin, input);
-          if(currentList->merge2Lists(input)) {
-            currentList->printList();
-          }
-          else {
-            std::cout << "ERROR Merging Lists\n";
-          }
-          break;
-      }
-      //Print List
-      case 7: {
-          currentList->printList();
-          break;
-      }
-      //Reverse List
-      case 8: {
-          currentList = currentList->reverseList();
           currentList->printList();
           break;
       }
       //Quit
-      case 9: {
-          delete currentList;
-          quit = true;
-          break;
+      case 5: {
+        delete currentList;
+        quit = true;
+        break;
       }
       //Invalid Input
       default: {
-          std::cout << "Please input a number between 1 and 9.\n\n";
+          std::cout << "Please input a number between 1 and 5.\n\n";
       }
     }
   }

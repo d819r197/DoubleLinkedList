@@ -24,24 +24,43 @@ bool Linkedlist::isEmpty() {
 }
 
 void Linkedlist::insertNode(int value) {
-  if(isEmpty()) {
-    std::cout << "im empty\n";
-    Node* tempNode = new Node(value);
-    tempNode->setNextNode(nullptr);
-    head = tempNode;
-  }
-  else {
-    Node* tempNode = head;
-    Node* tempNode2 = new Node(value);
-    while(tempNode->getNextNode() != nullptr)
-    {
-      tempNode = tempNode->getNextNode();
+  if(!find(value)) {
+    if(isEmpty()) {
+      Node* tempNode = new Node(value);
+      tempNode->setNextNode(nullptr);
+      head = tempNode;
     }
-    tempNode->setNextNode(tempNode2);
-    tempNode2->setNextNode(nullptr);
-    tempNode2->setPrevNode(tempNode);
+    else {
+      Node* tempNode = head;
+      Node* tempNode2 = new Node(value);
+      while(tempNode->getNextNode() != nullptr)
+      {
+        tempNode = tempNode->getNextNode();
+      }
+      tempNode->setNextNode(tempNode2);
+      tempNode2->setNextNode(nullptr);
+    }
+    listSize++;
   }
-  listSize++;
+}
+
+
+void Linkedlist::insertNodeFront(int value) {
+  if(!find(value)) {
+    if(isEmpty()) {
+      insertNode(value);
+    }
+    else {
+      Node* oldFirst = head;
+      Node* newFirst = new Node(value);
+      Node* second = oldFirst->getNextNode();
+
+      head = newFirst;
+      newFirst->setNextNode(oldFirst);
+      oldFirst->setNextNode(second);
+    }
+    listSize++;
+  }
 }
 
 bool Linkedlist::deleteNode(int value) {
@@ -49,7 +68,6 @@ bool Linkedlist::deleteNode(int value) {
   while(tempNode->getNextNode() != nullptr)
   {
     if(value == tempNode->getValue()) {
-      Node* prev = tempNode->getPrevNode();
       Node* next = tempNode->getNextNode();
       if(tempNode == head) {
         head=next;
@@ -58,7 +76,6 @@ bool Linkedlist::deleteNode(int value) {
         return (true);
       }
       else {
-        prev->setNextNode(next);
         delete tempNode;
         listSize--;
         return (true);
@@ -67,7 +84,6 @@ bool Linkedlist::deleteNode(int value) {
     tempNode = tempNode->getNextNode();
   }
   if(value == tempNode->getValue()) {
-    Node* prev = tempNode->getPrevNode();
     Node* next = tempNode->getNextNode();
     if(tempNode->getValue() == head->getValue()) {
       head=next;
@@ -76,7 +92,6 @@ bool Linkedlist::deleteNode(int value) {
       return (true);
     }
     else {
-      prev->setNextNode(next);
       delete tempNode;
       listSize--;
       return (true);
@@ -124,6 +139,32 @@ int Linkedlist::average() {
   }
   sum += tempNode->getValue();
   return(sum/listSize);
+}
+
+bool Linkedlist::find(int value) {
+  Node* tempNode = head;
+  if(!isEmpty()) {
+    if(listSize == 1) {
+      if(tempNode->getValue() == value) {
+        return(true);
+      }
+      else {
+        return(false);
+      }
+    }
+    else {
+      while(tempNode->getNextNode() != nullptr) {
+        if(value == tempNode->getValue()) {
+          return(true);
+        }
+        tempNode = tempNode->getNextNode();
+      }
+      if(value == tempNode->getValue()) {
+        return(true);
+      }
+    }
+  }
+  return(false);
 }
 
 void Linkedlist::parseNewString(std::string input) {
@@ -196,11 +237,9 @@ Linkedlist* Linkedlist::reverseList() {
   Node* node = head;
   Linkedlist* reverse = new Linkedlist;
   while(node->getNextNode() != nullptr) {
+    reverse->insertNodeFront(node->getValue());
     node = node->getNextNode();
   }
-  for(int lcv = 0; lcv < listSize; lcv++) {
-    reverse->insertNode(node->getValue());
-    node = node->getPrevNode();
-  }
+  reverse->insertNodeFront(node->getValue());
   return (reverse);
 }

@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Linkedlist.h"
+#include "Hash.h"
 
 class Executive {
   public:
