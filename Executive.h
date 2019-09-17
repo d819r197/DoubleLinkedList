@@ -2,21 +2,22 @@
 #define EXECUTIVE_H
 
 #include <iostream>
-#include <string>
+// #include <string>
 
 #include "Linkedlist.h"
 #include "Hash.h"
+#include "MyString.h"
 
 class Executive {
   public:
-    Executive(std::string path);
+    Executive(MyString path);
 
     int menuInput();
     void run();
     bool parseInputFile();
 
   private:
-    std::string filePath;
+    MyString filePath;
     Linkedlist* currentList;
 
 };

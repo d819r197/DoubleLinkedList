@@ -5,9 +5,11 @@
 #include "Executive.h"
 #include "Linkedlist.h"
 #include "Hash.h"
+#include "MyString.h"
 
-Executive::Executive(std::string path) {
-  filePath = path;
+Executive::Executive(MyString path) {
+  std::cout<<"Path: " <<path.value() <<std::endl;
+  filePath.setValue(path.value());
   currentList = new Linkedlist;
 }
 
@@ -76,25 +78,34 @@ void Executive::run() {
 }
 
 bool Executive::parseInputFile() {
-  std::ifstream inputFile(filePath);
-  std::string strInt = "";
+  std::cout <<"Opening File...";
+  std::ifstream inputFile(filePath.value());
+  std::cout <<"File Opened\n";
+  MyString strInt;
   char c;
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
       if (c != ' ' && c != '\n') {
-        strInt += c;
+        char simpleArr[1] = {c};
+        std::cout <<"Appending newString...";
+        strInt.append(simpleArr);
+        std::cout <<"newString appended\n";
       }
       else {
         // std::cout<<"Creating Node with Value: " <<strInt <<"\n";
-        currentList->insertNode(std::stoi(strInt));
-        strInt = "";
+        std::cout <<"Inserting Node...";
+        currentList->insertNode(strInt.stoi());
+        std::cout <<"Node inserted\n";
+        std::cout <<"Setting strInt value to nullptr...";
+        strInt.setValue(nullptr);
+        std::cout <<"Value set\n";
       }
     }
     inputFile.close();
     return(true);
   }
   else {
-    std::cout << "File Path: " <<filePath <<" is an invalid path.\n";
+    std::cout << "File Path: " <<filePath.value() <<" is an invalid path.\n";
     return(false);
   }
 }

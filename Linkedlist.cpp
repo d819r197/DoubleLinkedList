@@ -211,6 +211,7 @@ bool Linkedlist::sortList() {
       return(false);
     }
   }
+  return(false);
 }
 
 bool Linkedlist::merge2Lists(std::string listRaw) {
