@@ -1,4 +1,4 @@
-SingleLinkedList: main.o Executive.o Linkedlist.o Node.o
+SingleLinkedList: main.o Executive.o Hash.o Linkedlist.o Node.o
 	g++ -g -std=c++11 main.o Executive.o Hash.o Linkedlist.o Node.o -o SingleLinkedList
 
 main.o: main.cpp Executive.h
