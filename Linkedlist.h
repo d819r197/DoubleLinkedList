@@ -16,6 +16,7 @@ class Linkedlist {
     void insertNodeFront(std::string value);
     bool deleteNode(std::string value);
     bool find(std::string value);
+    Node* at(int pos);
     void parseNewString(std::string input);
     bool merge2Lists(std::string listRaw);
     void printList();

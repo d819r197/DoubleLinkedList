@@ -65,6 +65,12 @@ void Linkedlist::insertNodeFront(std::string value) {
 
 bool Linkedlist::deleteNode(std::string value) {
   Node* tempNode = head;
+  Node* prevNode = nullptr;
+  int nodePos = 1;
+
+  if(isEmpty()) {
+    return(false);
+  }
   while(tempNode->getNextNode() != nullptr)
   {
     if(value == tempNode->getValue()) {
@@ -76,15 +82,19 @@ bool Linkedlist::deleteNode(std::string value) {
         return (true);
       }
       else {
+        prevNode = at(nodePos-1);
+        prevNode->setNextNode(tempNode->getNextNode());
         delete tempNode;
         listSize--;
         return (true);
       }
     }
     tempNode = tempNode->getNextNode();
+    nodePos++;
   }
   if(value == tempNode->getValue()) {
     Node* next = tempNode->getNextNode();
+    nodePos++;
     if(tempNode->getValue() == head->getValue()) {
       head=next;
       delete tempNode;
@@ -92,6 +102,8 @@ bool Linkedlist::deleteNode(std::string value) {
       return (true);
     }
     else {
+      prevNode = at(nodePos-1);
+      prevNode->setNextNode(tempNode->getNextNode());
       delete tempNode;
       listSize--;
       return (true);
@@ -125,6 +137,19 @@ bool Linkedlist::find(std::string value) {
   }
   return(false);
 }
+
+Node* Linkedlist::at(int pos) {
+  Node* tempNode = head;
+  if(pos < listSize) {
+    for(int lcv = 1; lcv < pos; lcv++) {
+      if(tempNode->getNextNode() != nullptr) {
+        tempNode = tempNode->getNextNode();
+      }
+    }
+  }
+  return(tempNode);
+}
+
 
 void Linkedlist::parseNewString(std::string input) {
   std::string strInt = "";

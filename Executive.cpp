@@ -42,23 +42,22 @@ void Executive::run() {
       //Delete
       case 2: {
           std::string input;
-          std::cout << "Enter the number to be deleted: ";
+          std::cout << "Enter the element to be deleted: ";
           std::cin >> input;
           if(hashTable->Delete(input)) {
             std::cout <<input << " was removed from the hash table. \n";
           }
           else {
-            std::cout << "Delete failed. Number was not found in the list.\n";
+            std::cout << "Delete failed. Element was not found in the list.\n";
           }
           break;
       }
       //Find
       case 3: {
           std::string input;
-          std::cout << "Enter the number to find: ";
+          std::cout << "Enter the element to find: ";
           std::cin >> input;
-          hashTable->Find(input); 
-
+          hashTable->Find(input);
           break;
       }
       //Print

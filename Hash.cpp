@@ -29,7 +29,8 @@ bool Hash::Insert(std::string x) {
       //Return false
 
     if(!Find(x)) {
-      table[HashFunction(x)].insertNodeFront(x);
+      // table[HashFunction(x)].insertNodeFront(x);
+      table[HashFunction(x)].insertNodeFront(x);  
       std::cout <<x << " was added successfully\n";
       return(true);
     }
@@ -54,8 +55,10 @@ bool Hash::Delete(std::string x) {
   }
   else {
     for(int lcv = 0; lcv < bucketSize; lcv++) {
-      if(table[lcv].deleteNode(x)) {
-        return(true);
+      if(table[lcv].find(x)) {
+        if(table[lcv].deleteNode(x)) {
+          return(true);
+        }
       }
     }
   }
