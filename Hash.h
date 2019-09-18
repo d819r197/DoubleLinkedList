@@ -2,20 +2,28 @@
 #define HASH_H
 
 #include <iostream>
+#include <string>
+#include "Linkedlist.h"
 
 class Hash {
   public:
-    //Constructor
+    //Constructor & Deconstructor
     Hash();
+    ~Hash();
 
-    bool Insert(char* x[]);
-    bool Delete(char* x[]);
+    bool Insert(std::string x);
+    bool Delete(std::string x);
     void Print();
-    int HashFunction(char* x[], int bucketSize);
-    Hash* Rehash();
-    bool Find(char* x[]);
+    int HashFunction(std::string x);
+    void Rehash();
+    bool Find(std::string x);
+    void ComputeLamda();
+    int NextPrime(int num);
 
   private:
+    int bucketSize;
+    Linkedlist* table;
+    double lamda;
 };
 
 #endif

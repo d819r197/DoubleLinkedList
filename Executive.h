@@ -17,7 +17,7 @@ class Executive {
 
   private:
     std::string filePath;
-    Linkedlist* currentList;
+    Hash* hashTable;
 
 };
 

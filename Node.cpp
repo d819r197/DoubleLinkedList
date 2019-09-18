@@ -3,16 +3,16 @@
 #include "Node.h"
 
 //Constructor
-Node::Node(int value) {
+Node::Node(std::string value) {
   nodeValue = value;
 }
 
 //Helper Functions
-int Node::getValue() {
+std::string Node::getValue() {
   return(nodeValue);
 }
 
-void Node::setValue(int value) {
+void Node::setValue(std::string value) {
   nodeValue = value;
 }
 

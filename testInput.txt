@@ -1,1 +1,4 @@
-1 1 2 2 3 3 4 5 6 7 8 9 10 12 113 323 3322
+cat, dog, one, many, words, can, be, fun,
+for, example,
+the, quick, red, fox, jumps, over, thee, lazy, brown, dog
+isnt, this, fun

@@ -8,7 +8,7 @@
 
 Executive::Executive(std::string path) {
   filePath = path;
-  currentList = new Linkedlist;
+  hashTable = new Hash;
 }
 
 int Executive::menuInput() {
@@ -33,19 +33,19 @@ void Executive::run() {
     switch (menuInput()) {
       //Insert
       case 1: {
-          int input;
+          std::string input;
           std::cout << "Enter element to be inserted in list: ";
           std::cin >> input;
-          currentList->insertNode(input);
+          hashTable->Insert(input);
           break;
       }
       //Delete
       case 2: {
-          int input;
+          std::string input;
           std::cout << "Enter the number to be deleted: ";
           std::cin >> input;
-          if(currentList->deleteNode(input)) {
-            std::cout << "Delete was successful. \n";
+          if(hashTable->Delete(input)) {
+            std::cout <<input << " was removed from the hash table. \n";
           }
           else {
             std::cout << "Delete failed. Number was not found in the list.\n";
@@ -54,16 +54,21 @@ void Executive::run() {
       }
       //Find
       case 3: {
+          std::string input;
+          std::cout << "Enter the number to find: ";
+          std::cin >> input;
+          hashTable->Find(input); 
+
           break;
       }
       //Print
       case 4: {
-          currentList->printList();
+          hashTable->Print();
           break;
       }
       //Quit
       case 5: {
-        delete currentList;
+        delete hashTable;
         quit = true;
         break;
       }
@@ -81,12 +86,13 @@ bool Executive::parseInputFile() {
   char c;
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
-      if (c != ' ' && c != '\n') {
+      if (c != ' ' && c != ',' && c != '\n') {
         strInt += c;
       }
       else {
-        // std::cout<<"Creating Node with Value: " <<strInt <<"\n";
-        currentList->insertNode(std::stoi(strInt));
+        if(strInt != "") {
+          hashTable->Insert(strInt);
+        }
         strInt = "";
       }
     }

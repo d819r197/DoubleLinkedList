@@ -2,21 +2,22 @@
 #define NODE_H
 
 #include <iostream>
+#include <string>
 
 class Node {
   public:
     //Constructor
-    Node(int value);
+    Node(std::string value);
 
     //Helper Functions
-    void setValue(int value);
-    int getValue();
+    void setValue(std::string value);
+    std::string getValue();
 
     Node* getNextNode();
     void setNextNode(Node* node);
 
   private:
-    int nodeValue;
+    std::string nodeValue;
     Node* nextNode;
 };
 
