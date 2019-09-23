@@ -3,12 +3,13 @@
 #include <fstream>
 
 #include "Executive.h"
-#include "Linkedlist.h"
-#include "Hash.h"
+// #include "DoubleHash.h"
+// #include "QuadraticHash.h"
 
 Executive::Executive(std::string path) {
   filePath = path;
-  currentList = new Linkedlist;
+  qHash = new QuadraticHash;
+  dHash = new DoubleHash;
 }
 
 int Executive::menuInput() {
@@ -16,9 +17,10 @@ int Executive::menuInput() {
 
   std::cout << "1. Insert \n";
   std::cout << "2. Delete \n";
-  std::cout << "3. Find \n";
-  std::cout << "4. Print \n";
-  std::cout << "5. Exit \n";
+  std::cout << "3. FindByRating \n";
+  std::cout << "4. SearchByPrice \n";
+  std::cout << "5. Print \n";
+  std::cout << "6. Exit \n";
 
   std::cout << ">> ";
   std::cin >> choice;
@@ -36,34 +38,41 @@ void Executive::run() {
           int input;
           std::cout << "Enter element to be inserted in list: ";
           std::cin >> input;
-          currentList->insertNode(input);
+          // qHash->insert(input);
+          // dHash->insert(input)
           break;
       }
       //Delete
       case 2: {
-          int input;
-          std::cout << "Enter the number to be deleted: ";
+          std::string input;
+          std::cout << "Enter the name to be deleted: ";
           std::cin >> input;
-          if(currentList->deleteNode(input)) {
-            std::cout << "Delete was successful. \n";
-          }
-          else {
-            std::cout << "Delete failed. Number was not found in the list.\n";
-          }
+          // if(currentList->deleteNode(input)) {
+          //   std::cout << "Delete was successful. \n";
+          // }
+          // else {
+          //   std::cout << "Delete failed. Number was not found in the list.\n";
+          // }
           break;
       }
-      //Find
+      //FindByRating
       case 3: {
           break;
       }
-      //Print
+      //SearchByPrice
       case 4: {
-          currentList->printList();
+          break;
+      }
+      //Print
+      case 5: {
+          qHash->Print();
+          dHash->Print();
           break;
       }
       //Quit
-      case 5: {
-        delete currentList;
+      case 6: {
+        delete qHash;
+        delete dHash;
         quit = true;
         break;
       }
@@ -78,15 +87,45 @@ void Executive::run() {
 bool Executive::parseInputFile() {
   std::ifstream inputFile(filePath);
   std::string strInt = "";
+  int cellNum = 0;
+
+  std::string name, rating;
+  int priceRange;
+
   char c;
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
-      if (c != ' ' && c != '\n') {
+      if (c != ' ') {
         strInt += c;
+      }
+      else if(c == ',') {
+        if(cellNum == 0) {
+          name = strInt;
+        }
+        else if(cellNum == 1) {
+          rating = strInt;
+        }
+        else if(cellNum == 2 ) {
+          priceRange = std::stoi(strInt);
+        }
+        else {
+          std::cout << "ERROR: Trying to place data in unknown spot of Restaurant struct\n";
+          return(false);
+        }
+        strInt = "";
+        cellNum++;
+      }
+      else if(c == '\n') {
+        qHash->Insert(name, rating, priceRange);
+        dHash->Insert(name, rating, priceRange);
+
+        name = "";
+        rating = "";
+        priceRange = 0;
       }
       else {
         // std::cout<<"Creating Node with Value: " <<strInt <<"\n";
-        currentList->insertNode(std::stoi(strInt));
+        // currentList->insertNode(std::stoi(strInt));
         strInt = "";
       }
     }

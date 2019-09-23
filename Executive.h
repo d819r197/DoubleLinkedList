@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-#include "Linkedlist.h"
-#include "Hash.h"
+#include "QuadraticHash.h"
+#include "DoubleHash.h"
 
 class Executive {
   public:
@@ -17,7 +17,8 @@ class Executive {
 
   private:
     std::string filePath;
-    Linkedlist* currentList;
+    QuadraticHash* qHash;
+    DoubleHash* dHash;
 
 };
 
