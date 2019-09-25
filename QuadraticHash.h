@@ -2,6 +2,7 @@
 #define QUADRATICHASH_H
 
 #include <iostream>
+#include <string>
 #include "RestaurantNode.h"
 
 class QuadraticHash {
@@ -10,15 +11,19 @@ class QuadraticHash {
     QuadraticHash();
     ~QuadraticHash();
 
-    bool Insert(std::string name, std::string rating, int priceRange);
-    bool Delete(RestaurantNode x);
+    bool Insert(std::string name, std::string priceRange, int rating);
+    bool Delete(std::string name);
     void Print();
-    int HashFunction(RestaurantNode x);
+    void ComputeLamda();
+    int HashFunction(std::string x);
+    int NextPrime(int num);
     bool Rehash();
-    bool Find(RestaurantNode x);
+    bool Find(std::string x);
 
   private:
     int bucketSize;
+    double lamda;
+    RestaurantNode* table;
 };
 
 #endif

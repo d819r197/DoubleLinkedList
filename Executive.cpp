@@ -3,8 +3,6 @@
 #include <fstream>
 
 #include "Executive.h"
-// #include "DoubleHash.h"
-// #include "QuadraticHash.h"
 
 Executive::Executive(std::string path) {
   filePath = path;
@@ -35,24 +33,36 @@ void Executive::run() {
     switch (menuInput()) {
       //Insert
       case 1: {
-          int input;
+          std::string input;
           std::cout << "Enter element to be inserted in list: ";
-          std::cin >> input;
-          // qHash->insert(input);
-          // dHash->insert(input)
+          std::cin.ignore();
+          std::getline(std::cin, input);
+          parseNewInput(input);
           break;
       }
       //Delete
       case 2: {
           std::string input;
           std::cout << "Enter the name to be deleted: ";
-          std::cin >> input;
-          // if(currentList->deleteNode(input)) {
-          //   std::cout << "Delete was successful. \n";
-          // }
-          // else {
-          //   std::cout << "Delete failed. Number was not found in the list.\n";
-          // }
+          std::cin.ignore();
+          std::getline(std::cin, input);
+          if(qHash->Delete(input)) {
+            if(dHash->Delete(input)) {
+              std::cout << "Deletion Status: Success/Success\n";
+            }
+            else {
+              std::cout << "Deletion Status: Success/Failure\n";
+            }
+          }
+          else {
+            if(dHash->Delete(input)) {
+              std::cout << "Deletion Status: Failure/Success\n";
+            }
+            else {
+              std::cout << "Deletion Status: Failure/Failure\n";
+            }
+          }
+
           break;
       }
       //FindByRating
@@ -65,8 +75,12 @@ void Executive::run() {
       }
       //Print
       case 5: {
+          std::cout << "Quadratic Probing: \n\n";
           qHash->Print();
+          std::cout << std::endl;
+          std::cout << "Double Hashing: \n\n";
           dHash->Print();
+          std::cout << "-----------------------------------------" << std::endl;
           break;
       }
       //Quit
@@ -84,18 +98,83 @@ void Executive::run() {
   }
 }
 
+void Executive::parseNewInput(std::string input) {
+  std::string strInt = "";
+  int cellNum = 0;
+
+  std::string name, priceRange;
+  int rating;
+
+  for(int lcv = 0; lcv < input.length(); lcv++) {
+    char c = input[lcv];
+    if(c == ' ') {
+      //do nothing
+    }
+    else if (c != ',' && c != '\n') {
+      strInt += c;
+    }
+    else if(c == ',') {
+      if(cellNum == 0) {
+        name = strInt;
+      }
+      else if(cellNum == 1) {
+        rating = std::stoi(strInt);
+      }
+      else {
+        std::cout << "ERROR: Trying to place data in unknown spot of Restaurant struct\n";
+      }
+      strInt = "";
+      cellNum++;
+    }
+    else if(c == '\n') {
+      //Do nothing till below
+    }
+    else {
+      strInt = "";
+    }
+  }
+    priceRange = strInt;
+    std::cout <<"inserting node with values name: " <<name <<", rating: " <<rating <<", and price range: " <<priceRange <<std::endl;
+
+    if(qHash->Insert(name, priceRange, rating)){
+      if(dHash->Insert(name, priceRange, rating)){
+        std::cout << "Insertion Status: Success/Success\n";
+      }
+      else {
+        std::cout << "Insertion Status: Success/Failure\n";
+      }
+    }
+    else {
+      if(dHash->Insert(name, priceRange, rating)){
+        std::cout << "Insertion Status: Failure/Success\n";
+      }
+      else {
+        std::cout << "Insertion Status: Failure/Failure\n";
+      }
+    }
+
+    strInt = "";
+    name = "";
+    priceRange = "";
+    rating = 0;
+    cellNum = 0;
+}
+
 bool Executive::parseInputFile() {
   std::ifstream inputFile(filePath);
   std::string strInt = "";
   int cellNum = 0;
 
-  std::string name, rating;
-  int priceRange;
+  std::string name, priceRange;
+  int rating;
 
   char c;
   if (inputFile.is_open()) {
     while(inputFile.get(c)) {
-      if (c != ' ') {
+      if(c == ' ') {
+        //do nothing
+      }
+      else if (c != ',' && c != '\n') {
         strInt += c;
       }
       else if(c == ',') {
@@ -103,10 +182,7 @@ bool Executive::parseInputFile() {
           name = strInt;
         }
         else if(cellNum == 1) {
-          rating = strInt;
-        }
-        else if(cellNum == 2 ) {
-          priceRange = std::stoi(strInt);
+          rating = std::stoi(strInt);
         }
         else {
           std::cout << "ERROR: Trying to place data in unknown spot of Restaurant struct\n";
@@ -116,12 +192,40 @@ bool Executive::parseInputFile() {
         cellNum++;
       }
       else if(c == '\n') {
-        qHash->Insert(name, rating, priceRange);
-        dHash->Insert(name, rating, priceRange);
+        priceRange = strInt;
+        std::cout <<"inserting node with values name: " <<name <<", rating: " <<rating <<", and price range: " <<priceRange <<std::endl;
+        if(!qHash->Insert(name, priceRange, rating)){
+          qHash->Rehash();
+          if(qHash->Insert(name, priceRange, rating)){
+            std::cout <<"Quadratic Probing: Insertion Status: Failure/Success\n";
+          }
+          else {
+            std::cout <<"Quadratic Probing: Insertion Status: Failure/Failure\n";
+          }
+        }
+        else {
+          std::cout <<"Quadratic Probing: Insertion Status: Success\n";
+        }
 
+
+        if(!dHash->Insert(name, priceRange, rating)){
+          dHash->Rehash();
+          if(dHash->Insert(name, priceRange, rating)){
+            std::cout <<"Double Hashing: Insertion Status: Failure/Success\n";
+          }
+          else {
+            std::cout <<"Double Hashing: Insertion Status: Failure/Failure\n";
+          }
+        }
+        else {
+          std::cout <<"Double Hashing: Insertion Status: Success\n";
+        }
+
+        strInt = "";
         name = "";
-        rating = "";
-        priceRange = 0;
+        priceRange = "";
+        rating = 0;
+        cellNum = 0;
       }
       else {
         // std::cout<<"Creating Node with Value: " <<strInt <<"\n";

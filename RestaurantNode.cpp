@@ -3,6 +3,12 @@
 #include "RestaurantNode.h"
 
 //Constructor
+RestaurantNode::RestaurantNode() {
+  name = "";
+  priceRange = "";
+  rating = 0;
+}
+
 RestaurantNode::RestaurantNode(std::string n, std::string pr, int r) {
   name = n;
   priceRange = pr;

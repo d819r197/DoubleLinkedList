@@ -7,6 +7,7 @@
 class RestaurantNode {
   public:
     //Constructor
+    RestaurantNode();
     RestaurantNode(std::string name, std::string priceRange, int rating);
 
     //Helper Functions

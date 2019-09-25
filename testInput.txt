@@ -1,1 +1,10 @@
-1 1 2 2 3 3 4 5 6 7 8 9 10 12 113 323 3322
+pizzashuttle, 1, $
+bugerking, 1, $
+bugerstand, 4, $$$
+jimmyjohns, 2, $
+momshouse, 5, $
+myhouse, 1, $$$
+mcdonalds, 3, $
+chipotle, 4, $$
+pizzahut, 5, $$$
+starbucks, 4, $$$
