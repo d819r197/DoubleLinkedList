@@ -20,6 +20,11 @@ DoubleHash::~DoubleHash() {
 
 
 bool DoubleHash::Insert(std::string name, std::string rating, int priceRange) {
+  ComputeLamda();
+  if(lamda >= .5) {
+    Rehash();
+  }
+
   RestaurantNode tempNode(name, rating, priceRange);
   // std::cout << "Creating Node with Name: " <<tempNode.getName() << ", rating: " <<tempNode.getRating() <<", price range: " <<tempNode.getPriceRange() <<std::endl;
   int tableLocation = HashFunction(name);
@@ -48,13 +53,17 @@ bool DoubleHash::Insert(std::string name, std::string rating, int priceRange) {
 }
 
 bool DoubleHash::Delete(std::string name) {
+  int tableLocation = 0;
   for(int lcv = 0; lcv<bucketSize; lcv++) {
+    tableLocation = lcv;
     if(table[lcv].getName() == name) {
       RestaurantNode blankNode;
       table[lcv] = blankNode;
+      std::cout <<"Double Hashing: " <<name << " was successfully deleted at location: " <<tableLocation <<"\n";
       return(true);
     }
   }
+  std::cout <<"Double Hashing: " <<name << " was not successfully deleted at location: " <<tableLocation <<"\n";
   return(false);
 }
 
@@ -70,7 +79,7 @@ void DoubleHash::Print() {
 }
 
 void DoubleHash::ComputeLamda() {
-  int numOfElements = 0;
+  double numOfElements = 0;
   for(int lcv = 0; lcv<bucketSize; lcv++) {
     if(table[lcv].getName() != "") {
       numOfElements++;
@@ -98,7 +107,7 @@ int DoubleHash::NextPrime(int num) {
   return(NextPrime(num+1));
 }
 
-bool DoubleHash::Rehash() {
+void DoubleHash::Rehash() {
   int newBucketSize = NextPrime(bucketSize*2);
   RestaurantNode* tempdTable = new RestaurantNode[newBucketSize];
   for(int lcv = 0; lcv < bucketSize; lcv++) {
@@ -117,4 +126,33 @@ bool DoubleHash::Find(std::string restaurantName) {
     }
   }
   return(false);
+}
+
+//Helper Functions
+void DoubleHash::setName(std::string value, int pos) {
+    table[pos].setName(value);
+}
+
+void DoubleHash::setPriceRange(std::string value, int pos) {
+  table[pos].setPriceRange(value);
+}
+
+void DoubleHash::setRating(int value, int pos) {
+  table[pos].setRating(value);
+}
+
+std::string DoubleHash::getName(int pos) {
+  return(table[pos].getName());
+}
+
+std::string DoubleHash::getPriceRange(int pos) {
+  return(table[pos].getPriceRange());
+}
+
+int DoubleHash::getRating(int pos) {
+  return(table[pos].getRating());
+}
+
+int DoubleHash::getBucketSize() {
+  return(bucketSize);
 }

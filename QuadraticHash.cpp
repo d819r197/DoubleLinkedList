@@ -15,11 +15,14 @@ QuadraticHash::QuadraticHash() {
 }
 
 QuadraticHash::~QuadraticHash() {
-
 }
 
 
 bool QuadraticHash::Insert(std::string name, std::string rating, int priceRange) {
+  ComputeLamda();
+  if(lamda >= .5) {
+    Rehash();
+  }
   RestaurantNode tempNode(name, rating, priceRange);
   // std::cout << "Creating Node with Name: " <<tempNode.getName() << ", rating: " <<tempNode.getRating() <<", price range: " <<tempNode.getPriceRange() <<std::endl;
   int tableLocation = HashFunction(name);
@@ -42,13 +45,17 @@ bool QuadraticHash::Insert(std::string name, std::string rating, int priceRange)
 }
 
 bool QuadraticHash::Delete(std::string name) {
+  int tableLocation = 0;
   for(int lcv = 0; lcv<bucketSize; lcv++) {
+    tableLocation = lcv;
     if(table[lcv].getName() == name) {
       RestaurantNode blankNode;
       table[lcv] = blankNode;
+      std::cout <<"Quadratic Probing: " <<name << " was successfully deleted\n";
       return(true);
     }
   }
+  std::cout <<"Quadratic Probing: " <<name << " was not successfully deleted\n";
   return(false);
 }
 
@@ -64,7 +71,7 @@ void QuadraticHash::Print() {
 }
 
 void QuadraticHash::ComputeLamda() {
-  int numOfElements = 0;
+  double numOfElements = 0;
   for(int lcv = 0; lcv<bucketSize; lcv++) {
     if(table[lcv].getName() != "") {
       numOfElements++;
@@ -92,7 +99,7 @@ int QuadraticHash::NextPrime(int num) {
   return(NextPrime(num+1));
 }
 
-bool QuadraticHash::Rehash() {
+void QuadraticHash::Rehash() {
   int newBucketSize = NextPrime(bucketSize*2);
   RestaurantNode* tempqTable = new RestaurantNode[newBucketSize];
   for(int lcv = 0; lcv < bucketSize; lcv++) {
@@ -101,7 +108,6 @@ bool QuadraticHash::Rehash() {
   table = tempqTable;
   bucketSize = newBucketSize;
   std::cout << "The Quadratic Probing table has been rehashed!\n";
-  return(true);
 }
 
 bool QuadraticHash::Find(std::string restaurantName) {
@@ -111,4 +117,33 @@ bool QuadraticHash::Find(std::string restaurantName) {
     }
   }
   return(false);
+}
+
+//Helper Functions
+void QuadraticHash::setName(std::string value, int pos) {
+    table[pos].setName(value);
+}
+
+void QuadraticHash::setPriceRange(std::string value, int pos) {
+  table[pos].setPriceRange(value);
+}
+
+void QuadraticHash::setRating(int value, int pos) {
+  table[pos].setRating(value);
+}
+
+std::string QuadraticHash::getName(int pos) {
+  return(table[pos].getName());
+}
+
+std::string QuadraticHash::getPriceRange(int pos) {
+  return(table[pos].getPriceRange());
+}
+
+int QuadraticHash::getRating(int pos) {
+  return(table[pos].getRating());
+}
+
+int QuadraticHash::getBucketSize() {
+  return(bucketSize);
 }

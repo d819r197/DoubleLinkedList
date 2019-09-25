@@ -1,0 +1,12 @@
+Blake Rieschick
+2829512
+
+Application: Bob is planning to develop an automated restaurant suggestion app like Yelp. This app
+should be able to recommend restaurants based on the factors of ‘price’ and 'ratings'. Your task is to
+answer the following questions:
+1. Explain how this algorithm can help in application development.
+-The algoritm will allow the user to select price a ratings as a way of filtering the data in the hash table.
+
+2. Can you suggest a third factor which can be included in this kind of recommendation app? For
+example: the distance from your location.
+Another attribute that would be useful when looking at resturants and their data could be the times that they are open. There could be a new object that is a 2D array of strings where in array 1 there is days of the week Monday-Sunday. And then at each cell (day of the week) there is a string "open-close".
